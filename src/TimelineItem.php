@@ -4,6 +4,7 @@ namespace Litstack\Timeline;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Litstack\Timeline\Items\Item;
 
 class TimelineItem extends Model
 {
@@ -23,24 +24,48 @@ class TimelineItem extends Model
         'payload' => 'json',
     ];
 
+    /**
+     * Fillable attributes.
+     *
+     * @var array
+     */
     protected $fillable = [
-        'payload', 'type',
+        'payload', 'type', 'model_type', 'model_id',
     ];
 
+    /**
+     * Default attributes.
+     *
+     * @var array
+     */
     protected $attributes = [
         'payload' => [],
     ];
 
+    /**
+     * Attribute to be appended.
+     *
+     * @var array
+     */
     protected $appends = [
-        'date',
-        'time',
+        'date', 'time',
     ];
 
+    /**
+     * "date" attribute getter.
+     *
+     * @return string
+     */
     public function getDateAttribute()
     {
         return $this->created_at->isoFormat('MM. MMM');
     }
 
+    /**
+     * "item" attribute getter.
+     *
+     * @return string
+     */
     public function getTimeAttribute()
     {
         return $this->created_at->isoFormat('HH:mm');
@@ -56,6 +81,11 @@ class TimelineItem extends Model
         return $this->morphTo('model');
     }
 
+    /**
+     * Get item instance.
+     *
+     * @return Item|mixed
+     */
     public function getItem()
     {
         $type = $this->type;
@@ -76,21 +106,15 @@ class TimelineItem extends Model
         return $this;
     }
 
+    /**
+     * Set title.
+     *
+     * @param  string $title
+     * @return $this
+     */
     public function title(string $title)
     {
         $this->payload['title'] = $title;
-
-        return $this;
-    }
-
-    public function addProp($name, $value)
-    {
-        if (is_null($this->payload)) {
-            $this->payload = [];
-        }
-        $payload = $this->payload;
-        $payload[$name] = $value;
-        $this->payload = $payload;
 
         return $this;
     }

@@ -21,9 +21,9 @@ trait HasTimeline
     /**
      * Add item to timeline.
      *
-     * @param  string $type
-     * @param  array  $payload
-     * @return void
+     * @param  string       $type
+     * @param  array        $payload
+     * @return TimelineItem
      */
     public function addToTimeline(string $type, array $payload = [])
     {
