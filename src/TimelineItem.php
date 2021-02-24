@@ -39,7 +39,7 @@ class TimelineItem extends Model
      * @var array
      */
     protected $attributes = [
-        'payload' => [],
+        'payload' => '{}',
     ];
 
     /**
