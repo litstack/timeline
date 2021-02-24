@@ -24,6 +24,10 @@ class TimelineServiceProvider extends ServiceProvider
         CrudShow::macro('timeline', function () {
             $model = request()->route()->getConfig()->getModelInstance();
 
+            if (! $model) {
+                return;
+            }
+
             return $this->component(new TimelineComponent($model));
         });
     }
