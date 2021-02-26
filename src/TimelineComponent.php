@@ -33,4 +33,15 @@ class TimelineComponent extends Component implements Resizable
         $this->prop('model', $model);
         $this->prop('items', $model->timeline_items);
     }
+
+    /**
+     * Set title.
+     *
+     * @param  string $title
+     * @return $this
+     */
+    public function title(string $title)
+    {
+        return $this->prop('title', $title);
+    }
 }

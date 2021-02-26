@@ -22,10 +22,11 @@ class TimelineServiceProvider extends ServiceProvider
         Lit::script(__DIR__.'/../dist/timeline.js');
 
         CrudShow::macro('timeline', function () {
-            $model = request()->route()->getConfig()->getModelInstance();
+            $model = $this->config->getModelInstance();
 
             if (! $model) {
-                return;
+                $class = $this->config->model;
+                $model = new $class();
             }
 
             return $this->component(new TimelineComponent($model));
