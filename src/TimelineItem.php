@@ -58,7 +58,7 @@ class TimelineItem extends Model
      */
     public function getDateAttribute()
     {
-        return $this->created_at->isoFormat('MM. MMM');
+        return $this->created_at->isoFormat('DD. MMM');
     }
 
     /**
